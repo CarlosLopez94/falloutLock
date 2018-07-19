@@ -19,4 +19,8 @@ class Pin {
 		rect(-this.pWidth / 2, 0, this.pWidth, this.pHeight);
 		pop();
 	};
+
+	getCurrentAngle(){
+		return this.currentAngle;
+	}
 }
