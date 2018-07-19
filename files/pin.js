@@ -8,13 +8,13 @@ class Pin {
 
 	update() {
 		//check mouse Y, movement only active if pointer is aboce half canvas
-		this.currentAngle = map(mouseX, 0, width, -90, 90, true);
+		this.currentAngle = map(mouseX, 0, width, 90, 270, true);
 	};
 
 	show() {
 		push();
 		translate(this.pinPos.x, this.pinPos.y);
-		rotate(180);
+		//rotate(0);
 		rotate(this.currentAngle);
 		rect(-this.pWidth / 2, 0, this.pWidth, this.pHeight);
 		pop();

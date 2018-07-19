@@ -5,7 +5,7 @@ class Lock {
 		this.lWidth = 25;
 		this.lHeight = this.radius / 2;
 		this.currentLockAngle = 0;
-		this.solutionAngle = random(-90, 90);
+		this.solutionAngle = 45//random(-90, 90);
 		this.isOpen = false;
 	}
 
@@ -15,7 +15,9 @@ class Lock {
 
 	update(angleToCheck) {
 		if(!this.isOpen && this.currentLockAngle<90 && this.isOpening()){
-			
+			let angleDif = abs(this.currentLockAngle - angleToCheck)
+			this.currentAngle = map(mouseX, 0, width, -90, 90, true);
+			let openDifAngle = map(angleDif,-90, 90, -90, 90)
 			
 			this.currentLockAngle+=1;
 		}else if(!this.isOpen && this.currentLockAngle>0 && !this.isOpening()){ //check !isOpen
