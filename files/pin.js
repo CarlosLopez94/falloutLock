@@ -11,16 +11,21 @@ class Pin {
 		this.currentAngle = map(mouseX, 0, width, 90, 270, true);
 	};
 
-	show() {
+	show(isBlocked) {
 		push();
 		translate(this.pinPos.x, this.pinPos.y);
-		//rotate(0);
-		rotate(this.currentAngle);
-		rect(-this.pWidth / 2, 0, this.pWidth, this.pHeight);
+
+		if (isBlocked) {
+			let blockedAngle = random(this.currentAngle - 2, this.currentAngle + 2);
+			rotate(blockedAngle);
+		} else {
+			rotate(this.currentAngle);
+		}
+		rect(-this.pWidth / 2, 0, this.pWidth, this.pHeight, 60);
 		pop();
 	};
 
-	getCurrentAngle(){
+	getCurrentAngle() {
 		return this.currentAngle;
 	}
 }
