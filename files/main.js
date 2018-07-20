@@ -28,4 +28,11 @@ function draw() {
 
 	lock.show();
 	pin.show(isBlocked);
+
+	stroke(0, 0, 255);
+	translate(width/2, height/2)
+	rotate(180)
+	line(0, 0, 200 * cos(180), 200 * sin(180))
+	line(0, 0, 200 * cos(0), 200 * sin(0))
+
 }

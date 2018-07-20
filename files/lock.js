@@ -7,8 +7,9 @@ class Lock {
 		this.lockOpenedSound = lockOpenedSound;
 
 		this.currentLockAngle = 0;
-		this.solutionAngle = random(45, 135);
+		this.solutionAngle = 35;// Math.round(random(0, 180));
 		this.isOpen = false;
+		this.error = 15;
 	}
 
 	isOpening() {
@@ -21,10 +22,9 @@ class Lock {
 	 */
 	update(angleToCheck) {
 		if (!this.isOpen && this.currentLockAngle < 90 && this.isOpening()) {
-			let angleDif = abs(this.solutionAngle - angleToCheck)
-
-			let openDifAngle = map(angleDif, 45, 135, 0, 90);
-			if (this.currentLockAngle < openDifAngle) {
+			let parseCheckAngle = map(angleToCheck, 90, 270, 180, 0);
+			let angleDif = abs(this.solutionAngle - parseCheckAngle)
+			if (this.currentLockAngle < 90 - angleDif + this.error) {
 				this.currentLockAngle += 1;
 			} else {
 				//then the lock is blocked
@@ -51,15 +51,12 @@ class Lock {
 			text('Close', 10, 30);
 		}
 
-
 		translate(this.lockPos.x, this.lockPos.y);
 		rotate(this.currentLockAngle);
 		fill(125);
 		ellipse(0, 0, this.radius);
 		fill(80);
 		rect(-this.lWidth / 2, -this.lHeight / 10, this.lWidth, this.lHeight);
-		stroke(255, 0, 0);
-		line(0, 0, this.radius / 2 * cos(this.solutionAngle), this.radius / 2 * sin(this.solutionAngle))
 		pop()
 	}
 
