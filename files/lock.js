@@ -1,11 +1,13 @@
 class Lock {
-	constructor(x, y) {
+	constructor(x, y, lockOpenedSound) {
 		this.lockPos = createVector(x, y)
 		this.radius = 300
 		this.lWidth = 25;
 		this.lHeight = this.radius / 2;
+		this.lockOpenedSound = lockOpenedSound;
+
 		this.currentLockAngle = 0;
-		this.solutionAngle = 135;//random(-90, 90);
+		this.solutionAngle = random(45, 135);
 		this.isOpen = false;
 	}
 
@@ -20,20 +22,22 @@ class Lock {
 	update(angleToCheck) {
 		if (!this.isOpen && this.currentLockAngle < 90 && this.isOpening()) {
 			let angleDif = abs(this.solutionAngle - angleToCheck)
-			print("sol: " + this.solutionAngle + "  check: " + angleToCheck + "  diff:" + angleDif)
 
 			let openDifAngle = map(angleDif, 45, 135, 0, 90);
 			if (this.currentLockAngle < openDifAngle) {
 				this.currentLockAngle += 1;
 			} else {
+				//then the lock is blocked
 				return true;
 			}
 		} else if (!this.isOpen && this.currentLockAngle > 0 && !this.isOpening()) { //check !isOpen
 			//returns lock to its initial position
 			this.currentLockAngle -= 1;
-		} else if (this.currentLockAngle >= 90) {
+		} else if (!this.isOpen && this.currentLockAngle >= 90) {
 			this.isOpen = true;
+			this.lockOpenedSound.play();
 		}
+
 		return false;
 	}
 

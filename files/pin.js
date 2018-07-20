@@ -1,9 +1,10 @@
 class Pin {
-	constructor(x, y) {
+	constructor(x, y, lockSound) {
 		this.pinPos = createVector(x, y)
 		this.pWidth = 25;
 		this.pHeight = 180;
 		this.currentAngle = 0;
+		this.lockSound = lockSound;
 	}
 
 	update() {
@@ -16,9 +17,11 @@ class Pin {
 		translate(this.pinPos.x, this.pinPos.y);
 
 		if (isBlocked) {
+			this.lockSound.loop();
 			let blockedAngle = random(this.currentAngle - 2, this.currentAngle + 2);
 			rotate(blockedAngle);
 		} else {
+			this.lockSound.stop();
 			rotate(this.currentAngle);
 		}
 		rect(-this.pWidth / 2, 0, this.pWidth, this.pHeight, 60);
