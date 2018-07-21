@@ -1,23 +1,29 @@
 let pinLockSound;
 let lockOpenedSound;
+let pinBrokenSound;
 let difficultyRadio;
+
+let pinBrokenCont;
 
 //This happens BEFORE setup
 function preload() {
-	pinLockSound = loadSound("soundEffects/pin_locked.mp3");
-	lockOpenedSound = loadSound("soundEffects/lock_opened.mp3");
+	pinLockSound = loadSound("soundEffects/locked_pin.mp3");
+	lockOpenedSound = loadSound("soundEffects/opened_lock.mp3");
+	pinBrokenSound = loadSound("soundEffects/broken_pin.mp3");
 }
 
 function setup() {
 	angleMode(DEGREES)
-	createCanvas(600, 400);
+	createCanvas(800, 600);
 	textSize(32);
 
 	pinLockSound.playMode('untilDone');
 	pinLockSound.setVolume(0.5);
 
-	pin = new Pin(width / 2, height / 2, pinLockSound);
-	lock = new Lock(width / 2, height / 2, lockOpenedSound, 20);
+	pinBrokenSound.playMode('untilDone');
+
+	pin = new Pin(width / 2, height / 2, pinLockSound, pinBrokenSound);
+	lock = new Lock(width / 2, height / 2, lockOpenedSound, 5);
 
 	fill(255);
 	difficultyRadio = createRadio();
@@ -27,12 +33,14 @@ function setup() {
 
 	difficultyRadio.value('Medium'); //Default value
 
-	difficultyRadio.position(30, 360);
+	difficultyRadio.position(500, 50);
 	difficultyRadio.style("color", "#FFFFFF");
 	difficultyRadio.style('border', 'solid white');
 	difficultyRadio.style("font-size", "18pt");
 	difficultyRadio.size(250);
 	textAlign(RIGHT);
+
+	pinBrokenCont = 0;
 }
 
 function draw() {
@@ -42,24 +50,34 @@ function draw() {
 	changeDifficulty();
 
 	//Update pin and lock
-	pin.update()
+	pin.updateAngle()
 	let angle = pin.getCurrentAngle();
 	let isBlocked = lock.update(angle);
+	let broken = pin.updateBrokenStatus(isBlocked);
 
+	//update broken pin cont 
+	if (broken) {
+		pinBrokenCont++;
+	}
 
 	//Draw pin and lock
 	lock.show();
 	pin.show(isBlocked);
+
+	//Draw cont pins text
+	fill(255)
+	text('Number of broken pins: ' + pinBrokenCont, 400, 550);
 }
 
 function changeDifficulty() {
 	let selectedDifficulty = difficultyRadio.value();
 
 	if (selectedDifficulty == 'Easy') {
-		lock.setError(15);
-	} else if (selectedDifficulty == 'Medium') {
 		lock.setError(10);
-	} else if (selectedDifficulty == 'Hard') {
+	} else if (selectedDifficulty == 'Medium') {
 		lock.setError(5);
+	} else if (selectedDifficulty == 'Hard') {
+		lock.setError(2);
 	}
 }
+

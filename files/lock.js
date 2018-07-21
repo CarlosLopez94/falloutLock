@@ -50,7 +50,6 @@ class Lock {
 			fill(255, 0, 0)
 			text('Close', 100, 50);
 		}
-		print(this.error);
 		translate(this.lockPos.x, this.lockPos.y);
 		rotate(this.currentLockAngle);
 		fill(125);
