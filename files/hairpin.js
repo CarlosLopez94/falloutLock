@@ -1,4 +1,4 @@
-class Pin {
+class Hairpin {
 	constructor(x, y, lockSound, brokenSound) {
 		this.pinPos = createVector(x, y)
 		this.pWidth = 10;

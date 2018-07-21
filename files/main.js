@@ -1,15 +1,15 @@
-let pinLockSound;
+let hairpinLockSound;
 let lockOpenedSound;
-let pinBrokenSound;
+let hairpinBrokenSound;
 let difficultyRadio;
 
-let pinBrokenCont;
+let hairpinBrokenCont;
 
 //This happens BEFORE setup
 function preload() {
-	pinLockSound = loadSound("soundEffects/locked_pin.mp3");
+	hairpinLockSound = loadSound("soundEffects/locked_pin.mp3");
 	lockOpenedSound = loadSound("soundEffects/opened_lock.mp3");
-	pinBrokenSound = loadSound("soundEffects/broken_pin.mp3");
+	hairpinBrokenSound = loadSound("soundEffects/broken_pin.mp3");
 }
 
 function setup() {
@@ -17,14 +17,14 @@ function setup() {
 	createCanvas(800, 600);
 	textSize(32);
 
-	pinLockSound.playMode('untilDone');
-	pinLockSound.setVolume(0.5);
+	hairpinLockSound.playMode('untilDone');
+	hairpinLockSound.setVolume(0.5);
 
-	pinBrokenSound.playMode('untilDone');
+	hairpinBrokenSound.playMode('untilDone');
 
-	pin = new Pin(width / 2, height / 2, pinLockSound, pinBrokenSound);
+	hairpin = new Hairpin(width / 2, height / 2, hairpinLockSound, hairpinBrokenSound);
 	lock = new Lock(width / 2, height / 2, lockOpenedSound, 5);
-	pinBrokenCont = 0;
+	hairpinBrokenCont = 0;
 
 	//Create difficulty selector
 	fill(255);
@@ -59,27 +59,29 @@ function draw() {
 	//Update difficulty
 	changeDifficulty();
 
-	//Update pin and lock
-	pin.updateAngle()
-	let angle = pin.getCurrentAngle();
+	//Update hairpin and lock
+	hairpin.updateAngle()
+	let angle = hairpin.getCurrentAngle();
 	let isBlocked = lock.update(angle);
-	let broken = pin.updateBrokenStatus(isBlocked);
+	let broken = hairpin.updateBrokenStatus(isBlocked);
 
-	//update broken pin cont 
+	//update broken hairpin cont 
 	if (broken) {
-		pinBrokenCont++;
+		hairpinBrokenCont++;
 	}
 
-	//Draw pin and lock
+	//Draw hairpin and lock
 	lock.show();
-	pin.show(isBlocked);
+	hairpin.show(isBlocked);
 
 	//Draw cont pins text
 	fill(255)
-	text('Number of broken pins: ' + pinBrokenCont, 400, 550);
+	text('Number of broken hairpins: ' + hairpinBrokenCont, 400, 550);
 
 }
 
+//Changes difficulty of the lock (error will decrease if it becomes more difficult, 
+//so player has to be increase his accuracy)
 function changeDifficulty() {
 	let selectedDifficulty = difficultyRadio.value();
 
@@ -92,8 +94,9 @@ function changeDifficulty() {
 	}
 }
 
+//Creates a new lock and reset hairpins cont
 function resetGame() {
-	pin = new Pin(width / 2, height / 2, pinLockSound, pinBrokenSound);
+	hairpin = new Pin(width / 2, height / 2, hairpinLockSound, hairpinBrokenSound);
 	lock = new Lock(width / 2, height / 2, lockOpenedSound, 5);
-	pinBrokenCont = 0;
+	hairpinBrokenCont = 0;
 }
