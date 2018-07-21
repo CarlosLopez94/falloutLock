@@ -45,10 +45,10 @@ class Lock {
 		push()
 		if (this.isOpen) {
 			fill(0, 255, 0)
-			text('Open', 730, 730);
+			text('Open', 730, 300);
 		} else {
 			fill(255, 0, 0)
-			text('Close', 730, 730);
+			text('Close', 730, 300);
 		}
 		translate(this.lockPos.x, this.lockPos.y);
 		rotate(this.currentLockAngle);

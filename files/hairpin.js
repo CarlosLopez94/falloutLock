@@ -1,6 +1,6 @@
 class Hairpin {
 	constructor(x, y, lockSound, brokenSound) {
-		this.pinPos = createVector(x, y)
+		this.hairpinPos = createVector(x, y)
 		this.pWidth = 10;
 		this.pHeight = 180;
 		this.currentAngle = 0;
@@ -39,7 +39,7 @@ class Hairpin {
 	show(isBlocked) {
 		if (!this.isBroken) {
 			push();
-			translate(this.pinPos.x, this.pinPos.y);
+			translate(this.hairpinPos.x, this.hairpinPos.y);
 
 			if (isBlocked) {
 				this.lockSound.play();
