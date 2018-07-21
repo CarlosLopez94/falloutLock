@@ -76,7 +76,7 @@ function draw() {
 
 	//Draw cont pins text
 	fill(255)
-	text('Number of broken hairpins: ' + hairpinBrokenCont, 400, 550);
+	text('Number of broken hairpins: ' + hairpinBrokenCont, 450, 550);
 
 }
 
