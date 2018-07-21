@@ -1,5 +1,5 @@
 class Lock {
-	constructor(x, y, lockOpenedSound) {
+	constructor(x, y, lockOpenedSound, initError) {
 		this.lockPos = createVector(x, y)
 		this.radius = 300
 		this.lWidth = 25;
@@ -7,9 +7,9 @@ class Lock {
 		this.lockOpenedSound = lockOpenedSound;
 
 		this.currentLockAngle = 0;
-		this.solutionAngle = 35;// Math.round(random(0, 180));
+		this.solutionAngle = Math.round(random(0, 180));
 		this.isOpen = false;
-		this.error = 15;
+		this.error = initError;
 	}
 
 	isOpening() {
@@ -45,12 +45,12 @@ class Lock {
 		push()
 		if (this.isOpen) {
 			fill(0, 255, 0)
-			text('Open', 10, 30);
+			text('Open', 100, 50);
 		} else {
 			fill(255, 0, 0)
-			text('Close', 10, 30);
+			text('Close', 100, 50);
 		}
-
+		print(this.error);
 		translate(this.lockPos.x, this.lockPos.y);
 		rotate(this.currentLockAngle);
 		fill(125);
@@ -62,5 +62,9 @@ class Lock {
 
 	getIsOpen() {
 		return this.isOpen;
+	}
+
+	setError(newErrorValue){
+		this.error = newErrorValue;
 	}
 }
