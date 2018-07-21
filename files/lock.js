@@ -45,7 +45,7 @@ class Lock {
 		push()
 		if (this.isOpen) {
 			fill(0, 255, 0)
-			text('Open', 730, 300);
+			text('Open', 730, 300);  
 		} else {
 			fill(255, 0, 0)
 			text('Close', 730, 300);
