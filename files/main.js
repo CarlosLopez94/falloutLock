@@ -15,7 +15,6 @@ function preload() {
 function setup() {
 	angleMode(DEGREES)
 	createCanvas(800, 600);
-	textSize(32);
 
 	hairpinLockSound.playMode('untilDone');
 	hairpinLockSound.setVolume(0.5);
@@ -55,6 +54,7 @@ function setup() {
 
 function draw() {
 	background(0);
+	textSize(32);
 
 	//Update difficulty
 	changeDifficulty();
@@ -74,10 +74,13 @@ function draw() {
 	lock.show();
 	hairpin.show(isBlocked);
 
-	//Draw cont pins text
-	fill(255)
+	//Draw hairpins cont text
+	fill(255);
 	text('Number of broken hairpins: ' + hairpinBrokenCont, 450, 550);
 
+	//Draw instructions
+	textSize(25);
+	text('-Move hairpin with your mouse\n-Move lock by pressing \'A\' key', 380, 50);
 }
 
 //Changes difficulty of the lock (error will decrease if it becomes more difficult, 
