@@ -99,7 +99,7 @@ function changeDifficulty() {
 
 //Creates a new lock and reset hairpins cont
 function resetGame() {
-	hairpin = new Pin(width / 2, height / 2, hairpinLockSound, hairpinBrokenSound);
+	hairpin = new Hairpin(width / 2, height / 2, hairpinLockSound, hairpinBrokenSound);
 	lock = new Lock(width / 2, height / 2, lockOpenedSound, 5);
 	hairpinBrokenCont = 0;
 }
