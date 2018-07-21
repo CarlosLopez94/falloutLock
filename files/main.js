@@ -24,7 +24,9 @@ function setup() {
 
 	pin = new Pin(width / 2, height / 2, pinLockSound, pinBrokenSound);
 	lock = new Lock(width / 2, height / 2, lockOpenedSound, 5);
+	pinBrokenCont = 0;
 
+	//Create difficulty selector
 	fill(255);
 	difficultyRadio = createRadio();
 	difficultyRadio.option('Easy');
@@ -40,7 +42,15 @@ function setup() {
 	difficultyRadio.size(250);
 	textAlign(RIGHT);
 
-	pinBrokenCont = 0;
+	//Create reset button
+	resetButton = createButton("Reset");
+	resetButton.mousePressed(resetGame);
+	resetButton.position(500, 525);
+	resetButton.style("color", "#000000");
+	resetButton.style('border', 'solid black');
+	resetButton.style("background", "#7D7D7D");
+	resetButton.style("font-size", "18pt");
+	resetButton.size(250);
 }
 
 function draw() {
@@ -67,6 +77,7 @@ function draw() {
 	//Draw cont pins text
 	fill(255)
 	text('Number of broken pins: ' + pinBrokenCont, 400, 550);
+
 }
 
 function changeDifficulty() {
@@ -81,3 +92,8 @@ function changeDifficulty() {
 	}
 }
 
+function resetGame() {
+	pin = new Pin(width / 2, height / 2, pinLockSound, pinBrokenSound);
+	lock = new Lock(width / 2, height / 2, lockOpenedSound, 5);
+	pinBrokenCont = 0;
+}
